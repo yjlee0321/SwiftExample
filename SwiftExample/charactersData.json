@@ -1,0 +1,25 @@
+[
+
+ {
+    "id" : "a1",
+    "name" : "rirakkuma",
+    "description" : "rirakkuma",
+    "isBear" : true,
+    "imageName" : "리락쿠마"
+},
+ {
+    "id" : "b2",
+    "name" : "korirakkuma",
+    "description" : "korirakkuma",
+    "isBear" : true,
+    "imageName" : "코리락쿠마"
+},
+ {
+    "id" : "c3",
+    "name" : "kiiroitori",
+    "description" : "kiiroitori",
+    "isBear" : false,
+    "imageName" : "키이로이토리"
+},
+ 
+]
