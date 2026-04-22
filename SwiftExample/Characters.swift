@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Characters: Codable, Identifiable {
+struct Characters: Codable, Identifiable, Hashable {
     var id : String
     var name : String
     var description : String

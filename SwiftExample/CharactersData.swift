@@ -6,6 +6,7 @@
 //
 
 // 캐릭터 정보 불러오기 함수
+// 불러온 데이터
 import Foundation
 
 var charactersData: [Characters] = loadJson("charactersData.json")
