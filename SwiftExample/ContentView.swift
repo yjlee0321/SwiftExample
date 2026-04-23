@@ -10,10 +10,11 @@ import SwiftUI
 struct ContentView: View {
     
     @State var CharactersStore = charactersStore(characters: charactersData)
+    @State var stackPath = NavigationPath()
     
     var body: some View {
         
-        NavigationStack{
+        NavigationStack(path: $stackPath) {
             List {
                 ForEach(CharactersStore.characters) { characters in
                     NavigationLink(value:characters) {
@@ -42,7 +43,7 @@ struct ContentView: View {
             }
             .navigationDestination(for: String.self) { menuString in
                 if menuString == "Add Character"{
-                    AddNewCharacter()
+                    AddNewCharacter(CharactersStore: CharactersStore, path: $stackPath)
                 }
             }
             .navigationDestination(for: Characters.self) { characters in

@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddNewCharacter: View {
     
-    @State var CharactersStore = charactersStore()
+    var CharactersStore: charactersStore
+    @Binding var path: NavigationPath
+    
     @State private var isBear: Bool = false
     @State private var name: String = ""
     @State private var description: String = ""
@@ -44,13 +46,14 @@ struct AddNewCharacter: View {
                                      imageName: "Chairoi Coguma",
                                      isBear: isBear)
         CharactersStore.characters.append(newCharacter)
+        path.removeLast()
         
     }
 }
 
-#Preview {
-    AddNewCharacter()
-}
+//#Preview {
+//    AddNewCharacter()
+//}
 
 struct DataInput: View {
     var title: String
