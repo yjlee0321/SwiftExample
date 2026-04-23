@@ -26,7 +26,23 @@ struct ContentView: View {
                         //                    }
                         ListCell(characters: characters)
                     }
-                    
+                }
+            }
+            .navigationTitle(Text("Characters"))
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading, content: {
+                    NavigationLink(value: "Add Character"){
+                        Text("Add")
+                            .foregroundStyle(.blue)
+                    }
+                })
+                ToolbarItem(placement: .topBarTrailing, content: {
+                    EditButton()
+                })
+            }
+            .navigationDestination(for: String.self) { menuString in
+                if menuString == "Add Character"{
+                    AddNewCharacter()
                 }
             }
             .navigationDestination(for: Characters.self) { characters in
