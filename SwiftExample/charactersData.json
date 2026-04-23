@@ -21,5 +21,12 @@
     "isBear" : false,
     "imageName" : "Kiiroitori"
 },
+ {
+    "id" : "d4",
+    "name" : "차이로이코구마",
+    "description" : "Chairoi Coguma\n벌꿀의 숲에 사는, 코리락쿠마의 친구. 복슬복슬한 가슴털을 가지고 있으며, 입을 열면 이가 있습니다. 발바닥에는 곰모양 젤리풋. 몸에서 달콤한 꿀의 향기가 납니다. 엉덩이에는 꿀이 묻어 있습니다.",
+    "isBear" : false,
+    "imageName" : "ChairoiCoguma"
+},
  
 ]
