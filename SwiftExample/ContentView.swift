@@ -28,6 +28,8 @@ struct ContentView: View {
                         ListCell(characters: characters)
                     }
                 }
+                .onDelete(perform: deleteItems)
+                .onMove(perform: moveItems)
             }
             .navigationTitle(Text("Characters"))
             .toolbar{
@@ -50,6 +52,14 @@ struct ContentView: View {
                 CharactersDetail(selectedCharacter: characters)
             }
         }
+    }
+    
+    func deleteItems(at offsets: IndexSet) {
+        CharactersStore.characters.remove(atOffsets: offsets)
+    }
+    
+    func moveItems(source: IndexSet, destination: Int) {
+        CharactersStore.characters.move(fromOffsets: source, toOffset: destination)
     }
 }
 
