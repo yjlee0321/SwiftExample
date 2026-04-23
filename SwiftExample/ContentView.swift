@@ -13,19 +13,24 @@ struct ContentView: View {
     
     var body: some View {
         
-        List {
-            ForEach(CharactersStore.characters) { characters in
-                NavigationLink(value:characters) {
-//                    HStack {
-//                        Image(characters.imageName)
-//                            .resizable()    // 크기 조절 가능
-//                            .aspectRatio(contentMode: .fit)  // 이미지의 비율을 컨텐츠에 맞춤
-//                            .frame(width: 100, height: 60)
-//                        Text(characters.name)
-//                    }
-                    ListCell(characters: characters)
+        NavigationStack{
+            List {
+                ForEach(CharactersStore.characters) { characters in
+                    NavigationLink(value:characters) {
+                        //                    HStack {
+                        //                        Image(characters.imageName)
+                        //                            .resizable()    // 크기 조절 가능
+                        //                            .aspectRatio(contentMode: .fit)  // 이미지의 비율을 컨텐츠에 맞춤
+                        //                            .frame(width: 100, height: 60)
+                        //                        Text(characters.name)
+                        //                    }
+                        ListCell(characters: characters)
+                    }
+                    
                 }
-                
+            }
+            .navigationDestination(for: Characters.self) { characters in
+                CharactersDetail(selectedCharacter: characters)
             }
         }
     }
