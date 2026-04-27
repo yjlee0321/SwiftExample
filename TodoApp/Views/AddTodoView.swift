@@ -37,6 +37,7 @@ struct AddTodoView: View {
                     Button("Save") {
                         let todo = TodoItem(title: title)
                         modelContext.insert(todo)
+                        // 뷰 닫기와 동시에 모델 컨텍스트 저장이 호출됨
                         dismiss()
                     }
                 }
