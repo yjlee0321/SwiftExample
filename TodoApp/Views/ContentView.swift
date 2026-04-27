@@ -11,38 +11,37 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var todos: [TodoItem]
+    
+    @State private var showingAddTodo = false
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(todos) { item in
                     NavigationLink {
-                        Text("Item at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        TodoDetailView(item: item)
                     } label: {
-                        Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text("\(item.title) at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     }
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationTitle(Text("Todo Lists"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: {
+                        showingAddTodo = true
+                    }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = TodoItem(title: "New Item")
-            modelContext.insert(newItem)
+        .sheet(isPresented: $showingAddTodo) {
+            AddTodoView()
         }
     }
 
@@ -59,3 +58,4 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: TodoItem.self, inMemory: true)
 }
+
