@@ -18,6 +18,8 @@ struct TodoDetailView: View {
     @State private var showingEditView: Bool = false
     
     var body: some View {
+        // NavigationStack이 팝업일 경우에만 사용되어 뷰에서 분리함
+        // 다른 NavigationStack에서 페이지를 부를 경우, 오류가 발생함(중복 NavigationStack)
         Text("\(item.title) at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

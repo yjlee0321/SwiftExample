@@ -8,7 +8,9 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {    
+struct ContentView: View {
+    // 리스트 페이지로 modelContext 기능이 이동하여 삭제됨
+    
     @State private var showingAddTodo = false
 
     var body: some View {

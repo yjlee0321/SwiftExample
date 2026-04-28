@@ -31,6 +31,8 @@ struct TodoRowView: View {
             .tint(.yellow)
         }
         .sheet(isPresented: $showingEditView) {
+            // EditTodoView 안에서 빠진 NavigationStack을 추가함
+            // (팝업일 경우, 네비게이션 바 제목을 출력하려면 독립적인 NavigationStack 따로 필요함)
             NavigationStack {
                 EditTodoView(todo: item)
             }

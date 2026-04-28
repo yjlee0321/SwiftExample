@@ -8,6 +8,9 @@
 import SwiftUI
 import SwiftData
 
+// 한 가지 데이터 타입에 대해서, 다른 네비게이션 경로를 가질 경우
+// enum값을 이용해서 분기 처리를 해야 함.
+// (NavigationLink는 Hashable값을 가져야 하기 때문에 Hashable 프로토콜을 추가해줌)
 enum TodoNavigation: Hashable {
     case detail(TodoItem)
     case edit(TodoItem)
