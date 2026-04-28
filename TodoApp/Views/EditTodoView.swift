@@ -23,7 +23,6 @@ struct EditTodoView: View {
     }
     
     var body: some View {
-        NavigationStack {
             Form {
                 Section {
                     TextField("Title", text: $title)
@@ -47,7 +46,6 @@ struct EditTodoView: View {
                     }
                 }
             }
-        }
     }
 }
 

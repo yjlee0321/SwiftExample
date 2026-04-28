@@ -18,27 +18,27 @@ struct TodoDetailView: View {
     @State private var showingEditView: Bool = false
     
     var body: some View {
-        NavigationStack{
-            Text("\(item.title) at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Delete") {
-                            // 삭제 기능
-                            modelContext.delete(item)
-                            dismiss()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Edit") {
-                            // 수정 기능
-                            showingEditView = true
-                        }
+        Text("\(item.title) at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Delete") {
+                        // 삭제 기능
+                        modelContext.delete(item)
+                        dismiss()
                     }
                 }
-        }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Edit") {
+                        // 수정 기능
+                        showingEditView = true
+                    }
+                }
+            }
         .navigationTitle(item.title)
         .sheet(isPresented: $showingEditView) {
-            EditTodoView(todo: item)
+            NavigationStack{
+                EditTodoView(todo: item)
+            }
         }
     }
 }
