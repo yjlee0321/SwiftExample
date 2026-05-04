@@ -18,7 +18,20 @@ enum TodoNavigation: Hashable {
 
 struct TodoListView: View {
     @Environment(\.modelContext) private var modelContext
+    
+    let searchText: String
+    
     @Query private var todos: [TodoItem]
+    
+    init(searchText: String = "") {
+        self.searchText = searchText
+
+        let predicate = #Predicate<TodoItem> { todo in
+            searchText.isEmpty ? true : todo.title.contains(searchText) == true
+        }
+        
+        _todos = Query(filter: predicate, sort:[SortDescriptor(\TodoItem.createdAt)])
+    }
     
     var body: some View {
         List {
@@ -47,5 +60,6 @@ struct TodoListView: View {
 
 #Preview {
     TodoListView()
+        .modelContainer(PreviewContainer.shared.container)
 }
 

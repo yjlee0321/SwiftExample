@@ -12,10 +12,12 @@ struct ContentView: View {
     // 리스트 페이지로 modelContext 기능이 이동하여 삭제됨
     
     @State private var showingAddTodo = false
+    @State private var searchText = ""
 
     var body: some View {
         NavigationStack {
-            TodoListView()
+            TodoListView(searchText: searchText)
+                .searchable(text: $searchText)
                 .navigationTitle("Todo Lists")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
