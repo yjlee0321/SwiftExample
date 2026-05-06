@@ -20,12 +20,13 @@ struct TodoListView: View {
     @Environment(\.modelContext) private var modelContext
     
     let searchText: String
+    let priorityFilter: Priority?
     
     @Query private var todos: [TodoItem]
     
-    init(searchText: String = "") {
+    init(searchText: String = "", priorityFilter: Priority? = nil) {
         self.searchText = searchText
-
+        self.priorityFilter = priorityFilter
         let predicate = #Predicate<TodoItem> { todo in
             searchText.isEmpty ? true : todo.title.contains(searchText) == true
         }
