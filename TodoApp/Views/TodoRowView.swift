@@ -14,14 +14,10 @@ struct TodoRowView: View {
     
     var body: some View {
         HStack{
-    
-                Button(action: {
-                    todo.isCompleted.toggle()
-                }, label: {
-                    Image(systemName: todo.isCompleted ?
-                          "checkmark.square.fill" : "square")
-                    .foregroundColor(todo.isCompleted ? .green: .gray)
-                })
+            
+            Image(systemName: todo.isCompleted ?
+                  "checkmark.square.fill" : "square")
+            .foregroundColor(todo.isCompleted ? .green: .gray)
                 
                 VStack(alignment: .leading){
                     Text(todo.title)
@@ -30,10 +26,13 @@ struct TodoRowView: View {
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
-                .onLongPressGesture(minimumDuration: 0.5) {
-                    showingEditView = true
-                }
         
+        }
+        .onTapGesture {
+            todo.isCompleted.toggle()
+        }
+        .onLongPressGesture(minimumDuration: 0.5) {
+            showingEditView = true
         }
         .swipeActions(edge: .leading) {
             NavigationLink(value: TodoNavigation.detail(todo)) {
