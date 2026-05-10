@@ -19,18 +19,29 @@ struct AddTodoView: View {
     
     @State private var title: String = ""
     @State private var priority: Priority = .medium
+    @State private var dueDateEnabled = false
+    @State private var dueDate: Date? = nil
     
     var body: some View {
         NavigationStack {
             Form{
                 Section {
-                    TextField("Title", text: $title)
+                    TextField("제목", text: $title)
                     Picker("우선 순위", selection: $priority) {
                         ForEach(Priority.allCases, id: \.self) {
                             priority in
                             Text(priority.title)
                                 .tag(priority)
                         }
+                    }
+                    Toggle("마감일 설정", isOn: $dueDateEnabled)
+                    if dueDateEnabled {
+                        DatePicker("마감일",
+                                   selection: Binding(get: {
+                            dueDate ?? Date()   // dueDate가 nil(optional value)이면 기본값 출력
+                        }, set: {
+                            dueDate = $0
+                        }))
                     }
                 }
             }
@@ -43,7 +54,9 @@ struct AddTodoView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Save") {
-                        let todo = TodoItem(title: title, priority: priority)
+                        let todo = TodoItem(title: title,
+                                            priority: priority,
+                                            dueDate: dueDateEnabled ? dueDate : nil)
                         modelContext.insert(todo)
                         // 뷰 닫기와 동시에 모델 컨텍스트 저장이 호출됨
                         dismiss()

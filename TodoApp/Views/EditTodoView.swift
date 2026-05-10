@@ -16,11 +16,15 @@ struct EditTodoView: View {
     
     @State private var title: String = ""
     @State private var priority: Priority
+    @State private var dueDateEnabled = false
+    @State private var dueDate: Date? = nil
     
     init(todo: TodoItem) {
         self.todo = todo
         self._title = State(initialValue: todo.title)
         self._priority = State(initialValue: todo.priority)
+        self._dueDateEnabled = State(initialValue: todo.dueDate != nil) // dueDate가 not nil이면 true
+        self._dueDate = State(initialValue: todo.dueDate)
     }
     
     var body: some View {
@@ -34,6 +38,15 @@ struct EditTodoView: View {
                                 .tag(priority)
                         }
                     }
+                    Toggle("마감일 설정", isOn: $dueDateEnabled)
+                    if dueDateEnabled {
+                        DatePicker("마감일",
+                                   selection: Binding(get: {
+                            dueDate ?? Date()
+                        }, set: {
+                            dueDate = $0
+                        }))
+                    }
                 }
             }
             .navigationTitle("Edit Todo")
@@ -43,6 +56,7 @@ struct EditTodoView: View {
                         // 수정 기능
                         todo.title = title
                         todo.priority = priority
+                        todo.dueDate = dueDateEnabled ? dueDate : nil
                         
                         // 뷰 닫기와 동시에 모델 컨텍스트 저장이 호출됨
                         dismiss()

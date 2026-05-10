@@ -22,9 +22,11 @@ struct TodoRowView: View {
                 VStack(alignment: .leading){
                     Text(todo.title)
                         .strikethrough(todo.isCompleted)
-                    Text(todo.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                    if let dueDate = todo.dueDate {
+                        Text(dueDate, format: Date.FormatStyle(date: .numeric, time: .standard))
+                            .font(.caption)
+                            .foregroundStyle(dueDate > Date.now ? .gray : .red)
+                    }
                 }
             Spacer()
             PriorityBadge(priority: todo.priority)
@@ -55,7 +57,7 @@ struct TodoRowView: View {
 #Preview {
     NavigationStack{
         List{
-            TodoRowView(todo: TodoItem(title: "Hello, World!"))
+            TodoRowView(todo: TodoItem(title: "Hello, World!", dueDate: Date().addingTimeInterval(-1000)))  // 타임 인터벌을 사용해서 과거, 현재에 따른 글자색 변화를 프리뷰에서 확인 가능
         }
         .navigationTitle("Todo List")
     }
